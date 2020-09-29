@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>IPM</title>
+    <!-- (meter icon) -->
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <script src="data.js"></script>
+    <meta charset="UTF-8">
+</head>
+
+<body onload="init(getData())">
+
+    <!-- FOR BUILDING toggle overflow:
+     #overflow em style.css
+     function overflow() em script.js
+     linha em baixo -->
+    <div id="overflow" onclick="overflow(this)">SHOW</div>
+
+    <div id="bracelet-left">
+        <div onclick="lock()"></div>
+        <div onclick="goHome()"></div>
+    </div>
+
+    <div id="bracelet-right">
+        <div onclick="goBack()"></div>
+    </div>
+
+    <div id="bracelet"></div>
+
+    <div id="watch">
+
+        <!-- LOCK SCREEN -->
+        <div class="screen" id="lock">
+            <h1></h1>
+            <div></div>
+            <img onclick="unlock()" src="img/fingerprint.png" />
+        </div>
+
+        <!-- TIME -->
+        <div id="time">
+            <div class="round-section"></div>
+            <div class="round-text"></div>
+        </div>
+
+        <!-- CHANGE SORT -->
+        <div class="screen" id="change-sort">
+
+            <div class="round-section"></div>
+            <div class="round-section"></div>
+
+            <div onclick="changeSort(this)">
+                <h1></h1>
+            </div>
+            <div onclick="changeSort(this)">
+                <h1></h1>
+            </div>
+            <div onclick="changeSort(this)">
+                <h1></h1>
+            </div>
+        </div>
+
+        <!-- HOME -->
+        <div onscroll="scrollHome()" class="screen" id="home">
+
+            <div onclick="clickHome(0, 'comida')">
+                <img src="img/food.png">
+                <h1>comida</h1>
+            </div>
+            <div id="selected" onclick="clickHome(1, 'atuacoes')">
+                <img src="img/atuacoes.png">
+                <h1>atuações</h1>
+            </div>
+            <div onclick="clickHome(2, 'friends')">
+                <img src="img/friends.png">
+                <h1>amigos</h1>
+            </div>
+            <div onclick="clickHome(3, 'definicoes')">
+                <img src="img/settings_disabled.png">
+                <h1>definições</h1>
+            </div>
+            <div onclick="clickHome(4, 'ajuda')">
+                <img src="img/help_disabled.png">
+                <h1>ajuda</h1>
+            </div>
+
+            <svg id="home-scrollbar" viewbox="-100 -100 200 200">
+      <circle/>
+      <circle/>
+    </svg>
+        </div>
+
+        <!-- COMIDA -->
+        <div class="screen" id="comida">
+
+            <div class="content"></div>
+
+            <div class="sort">
+                <div class="round-section"></div>
+                <div class="round-text" onclick="openChangeSort()">
+                    <img src="img/sort.png">
+                    <p>por nome</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- MENU -->
+        <div class="screen" id="menu">
+
+            <div class="content"></div>
+
+            <div id="menu-price">
+                <div class="round-section"></div>
+                <div class="round-text">
+                    <img src="img/cart.png"/>
+                    <p onclick="lista(this)"><span></span> €<span></span></p>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- LISTA DE PRODTUOS -->
+
+        <div class="screen" id="lista">
+          <h1>É este o seu pedido?</h1>
+          <h2 id="confirmar-lista" onclick="newScreen('choose-payment')">Confirmar</h2>
+          <div onclick="limpar()"></div>
+          <h2 id="cancelar-lista" onclick="limpar()">Limpar</h2>
+          <div onclick="newScreen('choose-payment')"></div>
+          <ul></ul>
+          <p></p>
+        </div>
+
+        <!-- CHANGE SORT -->
+        <div class="screen" id="choose-payment">
+
+            <div onclick="newScreen('senha')">
+                <h1>Pagar no local</h1>
+            </div>
+            <div></div>
+            <div onclick="newScreen('autentication')">
+                <h1>Pagar já</h1>
+            </div>
+
+        </div>
+
+
+        <!-- AUTENTICACAO -->
+        <div class="screen" id="autentication">
+
+            <h1>Autenticação</h1>
+            <img src="img/fingerprint.png" onclick="autenticate()" />
+
+            <div class="cancel">
+                <div class="round-section"></div>
+                <div class="round-text">
+                    <p onclick="goBack()">Cancelar</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SENHA -->
+        <div class="screen" id="senha" onclick="senha()">
+            <h1>Senha</h1>
+            <h6>68</h6>
+            <h2>Pressione para<br>continuar</h2>
+        </div>
+
+        <!-- ATUACOES -->
+        <div class="screen" id="atuacoes">
+
+            <div class="content"></div>
+
+            <div class="sort">
+                <div class="round-section"></div>
+                <div class="round-text" onclick="openChangeSort()">
+                    <img src="img/sort.png">
+                    <p>por nome</p>
+                </div>
+            </div>
+
+            <!-- FIXME -->
+            <div id="sort-aux">
+                <div class="round-section"></div>
+                <div class="round-text">Hoje</div>
+                <div class="round-text">18</div>
+                <div class="round-text">20</div>
+            </div>
+
+            <div id="arrow-left" onclick="swipe('left')">
+                <img src="img/left.png">
+            </div>
+            <div id="arrow-right" onclick="swipe('right')">
+                <img src="img/right.png">
+            </div>
+
+        </div>
+
+        <!-- ARTISTAS -->
+        <div class="screen" id="artist"></div>
+
+        <!-- AMIGOS -->
+        <div class="screen" id="friends">
+
+            <div class="content"></div>
+
+            <div class="sort">
+                <div class="round-section"></div>
+                <div class="round-text" onclick="newScreen('choose-add')">
+                    <img src="img/add_user_ico.png">
+                    <p>Adicionar</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- MAPA -->
+        <div class="screen" id="map">
+          <img src="img/map_bg.png" />
+          <img src="img/navigate.png" />
+          <img src="img/my_location.png" />
+        </div>
+
+        <!-- NFC OU TELEMOVEL -->
+        <div class="screen" id="choose-add">
+
+            <div onclick="NFC()">
+                <h1>NFC</h1>
+            </div>
+            <div></div>
+            <div onclick="openNumPad()">
+                <h1>Número de Telemovel</h1>
+            </div>
+
+        </div>
+
+
+        <!-- TELEMOVEL -->
+        <div class="screen" id="tlm">
+
+          <h1></h1>
+
+          <h2 style="top:32px; left: 18px;">0</h2>
+          <h2 style="top:66px; left: 8px;">1</h2>
+          <h2 style="top:102px; left: 12px;">2</h2>
+          <h2 style="top:131px; left: 32px;">3</h2>
+          <h2 style="top:147px; left: 63px;">4</h2>
+          <h2 style="top:147px; right: 63px;">5</h2>
+          <h2 style="top:131px; right: 33px;">6</h2>
+          <h2 style="top:102px; right: 12px;">7</h2>
+          <h2 style="top:66px; right: 8px;">8</h2>
+          <h2 style="top:32px; right: 18px;">9</h2>
+
+          <svg id="numpad" viewbox="-100 -100 200 200">
+            <!-- 10x <circle/> -->
+          </svg>
+          <svg id="numpad-click" viewbox="-100 -100 200 200">
+            <!-- 10x <rect/> -->
+          </svg>
+
+          <div>
+            <img src="img/delete_number_disabled.png" onclick="deleteNumber()" />
+            <img src="img/add_user_disabled.png" onclick="autfriendtlm()" />
+          </div>
+
+        </div>
+
+
+        <!-- NFC -->
+        <div class="screen" id="NFC">
+            <img src="img/wifi.png">
+            <h1>A detectar dispositivo...</h1>
+        </div>
+
+        <div class="screen" id="NFC-aux1">
+            <img src="img/check.png">
+            <h1>Dispositivo detectado!</h1>
+        </div>
+
+        <div class="screen" id="NFC-aut"></div>
+
+        <div class="screen" id="NFC-aux2" onclick="newScreenWithSort('friends')">
+        </div>
+
+    </div>
+</body>
+
+</html>
+
+
+<!--
+
+TODO
+
+REVER CODIGO
+  mudar cores
+  getPropertyValue
+
+SCROLLBAR
+  meter todas curvas (svg)
+  uniformizar cores
+
+LOCK
+  implementar lock()
+  lembrete para atuacao
+  senhas comida
+
+HOME
+  automatizar home
+  scrollbar mais flexivel para muitas funcionalidades
+
+ATUACOES
+  mudança de dia
+
+ARTISTS
+  scrollbar para dar noção da quantidade
+  mudar/acrescentar artistas
+  preview de músicas
+
+COMIDA
+  mudar/acrescentar restaurantes e menus
+
+MENU
+  botao comprar
+  rever tamanhos de letra
+  disable -
+  + e - parecer um botao (mter redondo ou wtv)
+
+SHOPLIST (NOVO ECRA)
+  lista de proditos no carrinho
+  permitir remover ou adicionar mais iguais
+  permitir prosseguir com o pagamneto
+
+
+
+
+
+
+************************************************************
+
+
++ em alibaba
+
+confirmaçao em adicionar utilizador
+
+fotos quadradas

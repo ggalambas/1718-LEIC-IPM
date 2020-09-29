@@ -1,0 +1,41 @@
+@font-face {
+  font-family: Tajawal;
+  font-weight: 200;
+  src: url("font/Tajawal-ExtraLight.ttf");
+}
+
+@font-face {
+  font-family: Tajawal;
+  font-weight: 300;
+  src: url("font/Tajawal-Light.ttf");
+}
+
+@font-face {
+  font-family: Tajawal;
+  font-weight: 400;
+  src: url("font/Tajawal-Regular.ttf");
+}
+
+@font-face {
+  font-family: Tajawal;
+  font-weight: 500;
+  src: url("font/Tajawal-Medium.ttf");
+}
+
+@font-face {
+  font-family: Tajawal;
+  font-weight: 700;
+  src: url("font/Tajawal-Bold.ttf");
+}
+
+@font-face {
+  font-family: Tajawal;
+  font-weight: 800;
+  src: url("font/Tajawal-ExtraBold.ttf");
+}
+
+@font-face {
+  font-family: Tajawal;
+  font-weight: 900;
+  src: url("font/Tajawal-Black.ttf");
+}
